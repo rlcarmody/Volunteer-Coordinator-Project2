@@ -13,15 +13,15 @@ CREATE TABLE `Users` (
 	`phone` VARCHAR(10) NOT NULL,
 	`email` VARCHAR(100) NOT NULL,
     `skills` VARCHAR(5000),
-    `password` VARCHAR(100) NOT NULL,
-    `banned` BOOLEAN NOT NULL,
+    `password` CHAR(60) NOT NULL,
+    `banned` BOOLEAN NOT NULL DEFAULT 0,
 	/* Set ID as primary key */
 	PRIMARY KEY (`id`)
 );
 
 /*Create Events table*/
 CREATE TABLE `Events` (
-	`id` INTEGER NOT NULL,
+	`id` INTEGER AUTO_INCREMENT NOT NULL,
 	`name` VARCHAR (100) NOT NULL,
 	`description` VARCHAR(5000),
 	`venue` VARCHAR (250),
@@ -55,10 +55,10 @@ CREATE TABLE `User_Shifts` (
 	`id` INTEGER AUTO_INCREMENT NOT NULL,
 	`userID` INTEGER,
     `shiftID` INTEGER,
-    `checkedIn` BOOLEAN,
-    `checkedOut` BOOLEAN,
+    `checkedIn` BOOLEAN DEFAULT 0,
+    `checkedOut` BOOLEAN DEFAULT 0,
 
-	PRIMARY KEY (`id`)
+	PRIMARY KEY (`id`),
 
 	/* Set Foreign Keys*/
     FOREIGN KEY (`userID`)
