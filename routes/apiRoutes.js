@@ -26,7 +26,9 @@ module.exports = app => {
   app.post("/api/register", (req, res) => {
     if (sec.isValidPassword(req.body.password)) {
       sec.hashPassword(req.body.password, (err, hash) => {
-        if (err) res.status(500).end();
+        if (err) {
+          res.status(500).end();
+        }
         const newUserRequest = {
           firstName: req.body.firstName,
           lastName: req.body.lastName,
