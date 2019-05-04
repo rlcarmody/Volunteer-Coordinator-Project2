@@ -32,7 +32,7 @@ CREATE TABLE `Events` (
 	PRIMARY KEY (`id`)
 
 );
-
+/*Create shift table*/
 CREATE TABLE `Shifts` (
 	`id` INTEGER AUTO_INCREMENT NOT NULL,
     `eventID` INTEGER,
@@ -50,13 +50,16 @@ CREATE TABLE `Shifts` (
 );
 
 
-
+/*Create relational fk table*/
 CREATE TABLE `User_Shifts` (
-	`eventID` INTEGER,
+	`id` INTEGER AUTO_INCREMENT NOT NULL,
 	`userID` INTEGER,
     `shiftID` INTEGER,
     `checkedIn` BOOLEAN,
     `checkedOut` BOOLEAN,
+
+	PRIMARY KEY (`id`)
+
 	/* Set Foreign Keys*/
     FOREIGN KEY (`userID`)
     REFERENCES Users (`id`)
