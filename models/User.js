@@ -11,7 +11,7 @@ module.exports = (sequelize, DataTypes) => {
       }
     },
     password: {
-      type: DataTypes.STRING(60),
+      type: DataTypes.TEXT,
       allowNull: false,
       validate: {
         notEmpty: true
@@ -48,6 +48,13 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false
     }
   });
+
+  User.associate = models => {
+    User.hasMany(models.User_Shift, {
+      onDelete: "SET NULL"
+    });
+  };
+
   User.prototype.getFullName = function getFullLegalName() {
     return `${this.firstName} ${this.lastName}`;
   };
