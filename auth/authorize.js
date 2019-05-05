@@ -17,8 +17,8 @@ const auth = {
     return token;
   },
   verifyToken: headers => {
-    const token = headers.authorization.split(" ")[1];
     try {
+      const token = headers.authorization.split(" ")[1];
       return jwt.verify(token, publicKey, options);
     } catch (e) {
       return false;
