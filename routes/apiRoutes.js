@@ -8,9 +8,9 @@ module.exports = app => {
   });
 
   app.post("/api/login", (req, res) => {
-    db.User.findOne({ where: { email: req.body.email } }).then(user => {
+    db.User.findOne({ where: { email: req.body.email.trim() } }).then(user => {
       if (user) {
-        user.authenticate(req.body.password).then(isCorrectPassword => {
+        user.authenticate(req.body.password.trim()).then(isCorrectPassword => {
           if (isCorrectPassword) {
             const { id, email, isStaff } = user;
             const token = sec.authorize.generateToken(email, isStaff, id);
@@ -27,17 +27,17 @@ module.exports = app => {
 
   app.post("/api/register", (req, res) => {
     if (sec.isValidPassword(req.body.password)) {
-      sec.hashPassword(req.body.password, (err, hash) => {
+      sec.hashPassword(req.body.password.trim(), (err, hash) => {
         if (err) {
           res.status(500).end();
         }
         const newUserRequest = {
-          firstName: req.body.firstName,
-          lastName: req.body.lastName,
-          nickName: req.body.nickName,
-          phone: req.body.phone,
-          email: req.body.email,
-          skills: req.body.skills,
+          firstName: req.body.firstName.trim(),
+          lastName: req.body.lastName.trim(),
+          nickName: req.body.nickName.trim(),
+          phone: req.body.phone.trim(),
+          email: req.body.email.trim(),
+          skills: req.body.skills.trim(),
           password: hash
         };
         db.User.create(newUserRequest)
