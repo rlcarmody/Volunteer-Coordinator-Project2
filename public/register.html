@@ -19,56 +19,86 @@
 
     <h2>Register</h2>
 <!-- submit location on line below in ROUTE GOES HERE  -->
-    <form action="ROUTEGOESHERE" style="padding: 20px">
+    <form action="" style="padding: 5px">
       First name:<br>
-      <input type="text" name="firstnameInput" value="">
-      <br>
+      <input type="text" name="firstnameInput" value=""><br>
       Last name:<br>
-      <input type="text" name="lastnameInput" value="">
-      <br>
+      <input type="text" name="lastnameInput" value=""><br>
       Nickname (Chosen Name):<br>
-      <input type="text" name="nicknameInput" value="">
-      <br>
+      <input type="text" name="nicknameInput" value=""><br>
       Phone:<br>
-      <input type="text" name="phoneInput" value="">
-      <br>
+      <input type="text" name="phoneInput" value=""><br>
       Email:<br>
-      <input type="text" name="emailInput" value="">
+      <input type="email" name="emailInput" value="">
       <br>
       Skills:<br>
       <input type="text" name="skillInput" value="">
       <br>
       Password:<br>
-      <input type="text" name="passwordInput" value="">
+      <input type="password" name="passwordInput" value="">
       <br> 
       verify password:<br>
-      <input type="text" name="verifyInput" value="">
+      <input type="password" name="verifyInput" value="">
       <br>
       
       <br>
       <input type="submit" value="Submit">
     </form> 
     
-    <p>submit message here...</p>
+    <p>confirm below...</p>
     
   
 
+    <h2>Confirmation</h2>
 
+<div id="confirmDiv"> </div>
 
+<div>
 
+    <a class="waves-effect waves-light btn-large">Confirm</a>
 
-
-
+    <a class="waves-effect waves-light btn-large">Start Over</a>
+</div>
 
     <!--JavaScript at end of body for optimized loading-->
     <script type="text/javascript" src="js/materialize.min.js">
 // for drop down
       </script>
     <script>
-    document.addEventListener('DOMContentLoaded', function() {
-    var elems = document.querySelectorAll('.dropdown-trigger');
-    var instances = M.Dropdown.init(elems);
+// JS Script
+
+
+$.post( "ajax/test.html", function( data ) {
+  $( ".result" ).html( data );
 });
+
+// tester User json object
+let userInput = {
+        "firstnameInput":"Mark",
+        "lastnameInput":"Farina",
+        "nicknameInput":"DJ Mark",
+        "phoneInput": 5035554444,
+        "emailInput": "mark@dj.com",
+        "skillInput": "Dj, sound, dishes",
+        "passwordInput": "murderboat"
+
+       };
+
+
+//  send User json to div
+    let newRow = `<div>
+                        <p>${"First Name: " + userInput.firstnameInput}</p>
+                        <p>${"Last Name: " + userInput.lastnameInput}</p>
+                        <p>${"Nickname: " + userInput.nicknameInput}</p>
+                        <p>${"Phone: " + userInput.phoneInput}</p>
+                        <p>${"Email: " + userInput.emailInput}</p>
+                        <p>${"Skills: " + userInput.skillInput}</p>
+                    </div>`
+
+    console.log(userInput.firstnameInput);
+    $('#confirmDiv').append(newRow);
+
+// 
 
     </script>
   </body>
