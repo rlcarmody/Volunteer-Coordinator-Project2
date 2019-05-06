@@ -58,4 +58,12 @@ module.exports = app => {
       res.status(400).end();
     }
   });
+  // Example route that gets all Events, the shifts and the user shifts and returns as json
+  app.get("/events", (req, res) => {
+    db.Event.findAll({
+      include: { model: db.Shift, include: db.User_Shift }
+    }).then(results => {
+      res.json(results);
+    });
+  });
 };

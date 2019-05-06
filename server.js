@@ -4,6 +4,8 @@ const exphbs = require("express-handlebars");
 
 const db = require("./models");
 
+const seeds = require("./seeds");
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -35,6 +37,7 @@ if (process.env.NODE_ENV === "test") {
 
 // Starting the server, syncing our models ------------------------------------/
 db.sequelize.sync(syncOptions).then(() => {
+  seeds();
   app.listen(PORT, () => {
     console.log(
       "==> 🌎  Listening on port %s. Visit http://localhost:%s/ in your browser.",
