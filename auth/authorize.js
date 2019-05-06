@@ -12,12 +12,13 @@ const options = {
 
 const auth = {
   generateToken: (id, user, isStaff) => {
-    const payload = { user, isStaff, id };
+    const payload = { id, user, isStaff };
     const token = jwt.sign(payload, privateKey, options);
     return token;
   },
-  verifyToken: token => {
+  verifyToken: headers => {
     try {
+      const token = headers.authorization.split(" ")[1];
       return jwt.verify(token, publicKey, options);
     } catch (e) {
       return false;
