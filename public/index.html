@@ -15,11 +15,11 @@
   </head>
 
   <body>
-    <div textalign:center>
-        <img src="images/murderboat_logo.png">
 
+    <div textalign:center>
+      <img src="images/murderboat_logo.png" width=100px>
+      <h3 style="float:left">Manifest VCS Login&nbsp;&nbsp; </h3>
     </div>
-<br>
     <div>
         <!-- Dropdown Trigger -->
   <!-- <a class='dropdown-trigger btn' href='#' data-target='dropdown1'>Let's get started!</a> -->
@@ -31,16 +31,24 @@
     <li><a href="#!">register</a></li>
   
   </ul> -->
+    <!-- submit location on line below in ROUTE_GOES_HERE  -->
+        <form action="ROUTE_GOES_HERE" style="padding: 5px">
+          Email:<br>
+          <input type="text" name="emailLogin" value=""><br>
+          Password:<br>
+          <input type="text" name="passwordLogin" value=""><br> 
+          <input type="submit" value="Submit">
+        </form> 
+        
+        <p>First time?  register below..</p>
+  <a href="/register.html" class="waves-effect waves-light btn-large">Register</a>
 
-  <a href="/class="waves-effect waves-light btn-large">Login</a>
-
-  <a class="waves-effect waves-light btn-large">Register</a>
-
-  <a class="waves-effect waves-light btn-large">Admin</a>
-
+  <a href="/admin.html" class="waves-effect waves-light btn-large">Admin</a>
 
     </div>
-  
+  <br>
+  <br>
+
 
 
 
