@@ -3,7 +3,7 @@ const sec = require("../auth");
 
 module.exports = app => {
   app.get("/api/users", (req, res) => {
-    const user = sec.authorize.verifyToken(req.headers);
+    const user = sec.authorize.verifyToken(req.cookies);
     return user ? res.json(user) : res.status(401).end();
   });
 
@@ -14,7 +14,13 @@ module.exports = app => {
           if (isCorrectPassword) {
             const { id, email, isStaff } = user;
             const token = sec.authorize.generateToken(email, isStaff, id);
-            res.json({ token });
+            res
+              .cookie("authToken", token, {
+                maxAge: 600000,
+                httpOnly: true,
+                sameSite: true
+              })
+              .send("Success");
           } else {
             res.status(401).send("Invalid User Name or Password");
           }
@@ -47,7 +53,13 @@ module.exports = app => {
               user.email,
               user.isStaff
             );
-            res.json({ token });
+            res
+              .cookie("authToken", token, {
+                maxAge: 600000,
+                httpOnly: true,
+                sameSite: true
+              })
+              .send("Success");
           })
           .catch(error => {
             console.log(error.message);
