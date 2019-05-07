@@ -32,18 +32,18 @@ module.exports = app => {
   });
 
   app.post("/api/register", (req, res) => {
-    if (sec.isValidPassword(req.body.password)) {
-      sec.hashPassword(req.body.password.trim(), (err, hash) => {
+    if (sec.isValidPassword(req.body.userPassword)) {
+      sec.hashPassword(req.body.userPassword.trim(), (err, hash) => {
         if (err) {
           res.status(500).end();
         }
         const newUserRequest = {
-          firstName: req.body.firstName.trim(),
-          lastName: req.body.lastName.trim(),
-          nickName: req.body.nickName.trim(),
-          phone: req.body.phone.trim(),
-          email: req.body.email.trim(),
-          skills: req.body.skills.trim(),
+          firstName: req.body.userFirstName.trim(),
+          lastName: req.body.userLastName.trim(),
+          nickName: req.body.userNickName.trim(),
+          phone: req.body.usrePhone.trim(),
+          email: req.body.userEmail.trim(),
+          skills: req.body.userSkills.trim(),
           password: hash
         };
         db.User.create(newUserRequest)
@@ -62,7 +62,7 @@ module.exports = app => {
               .send("Success");
           })
           .catch(error => {
-            console.log(error.message);
+            console.log("error from line 66 apiRoutes: " + error);
             res.status(400).end();
           });
       });
