@@ -16,9 +16,9 @@ const auth = {
     const token = jwt.sign(payload, privateKey, options);
     return token;
   },
-  verifyToken: headers => {
+  verifyToken: cookies => {
     try {
-      const token = headers.authorization.split(" ")[1];
+      const token = cookies.authToken;
       return jwt.verify(token, publicKey, options);
     } catch (e) {
       return false;
