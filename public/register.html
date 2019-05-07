@@ -19,32 +19,32 @@
 
     <h2>Register</h2>
 <!-- submit location on line below in ROUTE GOES HERE  -->
-    <form action="" style="padding: 5px">
+    <form style="padding: 5px">
       First name:<br>
-      <input type="text" name="firstnameInput" value=""><br>
+      <input type="text" name="firstnameInput" id="firstName" value=""><br>
       Last name:<br>
-      <input type="text" name="lastnameInput" value=""><br>
+      <input type="text" name="lastnameInput" id="lastName" value=""><br>
       Nickname (Chosen Name):<br>
-      <input type="text" name="nicknameInput" value=""><br>
+      <input type="text" name="nicknameInput" id="nickName" value=""><br>
       Phone:<br>
-      <input type="text" name="phoneInput" value=""><br>
+      <input type="text" name="phoneInput" id="userPhone" value=""><br>
       Email:<br>
-      <input type="email" name="emailInput" value="">
+      <input type="email" name="emailInput" id="userEmail" value="">
       <br>
       Skills:<br>
-      <input type="text" name="skillInput" value="">
+      <input type="text" name="skillInput" id="userSkills" value="">
       <br>
       Password:<br>
-      <input type="password" name="passwordInput" value="">
+      <input type="password" name="passwordInput" id="userPassword" value="">
       <br> 
       verify password:<br>
-      <input type="password" name="verifyInput" value="">
+      <input type="password" name="verifyInput" id="verifyPassword" value="">
       <br>
       
       <br>
-      <input type="submit" value="Submit">
+      <input type="submit" id="regForm" value="Submit" class="waves-effect waves-light btn-large">
     </form> 
-    
+   <!-- 
     <p>confirm below...</p>
     
   
@@ -59,15 +59,19 @@
 
     <a class="waves-effect waves-light btn-large">Start Over</a>
 </div>
-
+-->
     <!--JavaScript at end of body for optimized loading-->
     <script type="text/javascript" src="js/materialize.min.js">
 // for drop down
-      </script>
-    <script>
+    </script>
+<!-- Start: Link to register.js. Providing js functions for registration process (Mohsen) -->
+<script type="text/javascript" src="js/register.js"></script>    
+<!-- End: Link to register.js. Providing js functions for registration process (Mohsen) -->   
+
+<script>
 // JS Script
 
-
+/*
 $.post( "ajax/test.html", function( data ) {
   $( ".result" ).html( data );
 });
@@ -99,6 +103,7 @@ let userInput = {
     $('#confirmDiv').append(newRow);
 
 // 
+*/
 
     </script>
   </body>
