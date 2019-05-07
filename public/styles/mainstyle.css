@@ -47,6 +47,14 @@ p,h3 {
   table {
   width:100%;
   }
+
+/* CSS for Admin */
+/* .active {
+  background-color: chartreuse;
+
+} */
+
+
 /* #shift-picker {
 
 } */
@@ -77,8 +85,13 @@ p,h3 {
   display:none
 }
 
-p {
-  padding: 0px;
+td {
+  padding: 2px;
+}
+
+span {
+  /* padding-left: 10px;
+  padding-right: 10px; */
 }
 
 }
