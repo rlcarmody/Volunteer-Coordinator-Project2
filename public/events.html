@@ -15,13 +15,14 @@
   <body>
 
 <div class="section black white-text">
+    <div class="section">
   <div class="row container">
     <div class="col s12 m4 push-m8 center-align">
       <img src="images/murderboat_logo.png" class="responsive-img" id="main-logo">
     </div>
     <div class="col s12 m8 pull-m4">
-       <p class="mbvcs">Manifest VCS Sign Up! (work in progress)</p><br>
-       <p class="flow-text-sm mobileghost">Volunteer Coordination System - Please login or register to volunteer with us! 
+       <p class="mbvcs">Manifest VCS Sign Up!</p>(how would you like to help?)<br>
+       <p class="flow-text-sm mobileghost">Volunteer Coordination System - Please select your position and shift! 
       <br>If you have any additional questions, please contact us at <a href="volunteers@murderboat.com">volunteers@murderboat.com!</a>
       <br>Read volunteer policy at: <a href="www.murderboat.com/volunteers">www.murderboat.com/volunteers</a></p>
 
@@ -30,59 +31,105 @@
   </div>
 
   <div class="row container">
-    <form method="POST" role="form" class="col s12">
-        <div class="row">
-            <div class="input-field-sm col s12">
-              <input id="firstName" type="text" class="validate white-text" name="firstName">
-              <label for="firstName">First Name</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field-sm col s12 white-text">
-              <input id="lastName" type="text" class="validate white-text" name="lastName" >
-              <label for="lastName">Last Name</label>
-            </div>
-          </div>
-        <div class="row">
-            <div class="input-field-sm col s12 white-text">
-              <input id="nickName" type="text" class="validate white-text" name="nickName" >
-              <label for="nickName">Nickname (Chosen Name)</label>
-            </div>
-        </div>  
-        <div class="row">
-            <div class="input-field-sm col s12 white-text">
-              <input id="phone" type="tel" class="validate white-text" name="phone" >
-              <label for="phone">Phone (xxx-xxx-xxxx)</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field-sm col s12 white-text">
-              <input id="email" type="email" class="validate white-text" name="passwordLogin" >
-              <label for="email">Email</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field-sm col s12 white-text">
-               <input id="skills" type="text" class="validate white-text" name="passwordLogin" >
-               <label for="skills">Skills</label>
-            </div>
-        </div>
-        <div class="row">
-            <div class="input-field-sm col s12 white-text">
-               <input id="password" type="password" class="validate white-text" name="passwordLogin" >
-               <label for="password">Password</label>
-            </div>
-        </div>
-    </form>
+    
 
-    <div class="col s12">
-      <button id="submit" class="btn waves-effect waves-light" type="submit" name="submit">Submit
-        <i class="material-icons right">send</i>
-      </button>
-    </div>
   </div>
-
-
+  <div class="row container white black-text">
+    <div id="shift-picker" class="responsive-table table-status-sheet">
+        <table class="bordered">
+          <thead>
+            <tr>
+              <th class="center">Position</th>
+              <th class="center">Day</th>
+              <th class="center">Shift</th>
+              <th class="center">select</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+                <td>Dishes</td>
+                <td>Friday PM</td>
+                <td>9:00pm to 11:00pm</td>
+                <td>
+                <button class="btn waves-effect waves-light" type="submit" name="action">I'll do it!
+                    <i class="material-icons right">send</i>
+                </button>
+                </td>                 
+            </tr>
+            <tr>
+                <td>Laundry</td>
+                <td>Saturday AM</td>
+                <td>10:00pm to 12:00am</td>
+                <td>              
+                <button class="btn waves-effect waves-light" type="submit" name="action">I'll do it!
+                    <i class="material-icons right">send</i>
+                </button>
+                </td>
+            </tr> 
+            <tr>
+                <td>Yard Work</td>
+                <td>Saturday AM</td>
+                <td>12:00am to 2:00am</td>
+                <td>
+                <button class="btn waves-effect waves-light" type="submit" name="action">I'll do it!
+                    <i class="material-icons right">send</i>
+                </button>
+                </td>                
+            </tr>
+            <tr>
+                <td>Mopping</td>
+                <td>Saturday AM</td>
+                <td>2:00am to 4:00am</td>
+                <td>
+                <button class="btn waves-effect waves-light" type="submit" name="action">I'll do it!
+                    <i class="material-icons right">send</i>
+                </button>
+                </td>                  
+            </tr>
+            <tr>
+                    <td>Dishes</td>
+                    <td>Saturday AM</td>
+                    <td>4:00am to 6:00am</td>
+                    <td>
+                    <button class="btn waves-effect waves-light" type="submit" name="action">I'll do it!
+                        <i class="material-icons right">send</i>
+                    </button>
+                    </td>                 
+                </tr>
+                <tr>
+                    <td>Laundry</td>
+                    <td>Saturday PM</td>
+                    <td>10:00pm to 12:00am</td>
+                    <td>              
+                    <button class="btn waves-effect waves-light" type="submit" name="action">I'll do it!
+                        <i class="material-icons right">send</i>
+                    </button>
+                    </td>
+                </tr> 
+                <tr>
+                    <td>Yard Work</td>
+                    <td>Sunday AM</td>
+                    <td>1:00am to 3:00am</td>
+                    <td>
+                    <button class="btn waves-effect waves-light" type="submit" name="action">I'll do it!
+                        <i class="material-icons right">send</i>
+                    </button>
+                    </td>                
+                </tr>
+                <tr>
+                    <td>Mopping</td>
+                    <td>Sunday AM</td>
+                    <td>3:00am to 5:00am</td>
+                    <td>
+                    <button class="btn waves-effect waves-light" type="submit" name="action">I'll do it!
+                        <i class="material-icons right">send</i>
+                    </button>
+                    </td>                  
+                </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   <div class="row container">
     <div class="col s8">
         <p>Already Registered?..</p>

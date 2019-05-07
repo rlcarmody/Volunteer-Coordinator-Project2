@@ -1,5 +1,5 @@
 body {
-    /* background: black; */
+    background: black;
     /* margin: auto; */
 
 }
@@ -27,6 +27,34 @@ p,h3 {
   color: #FDFDFD;
 }
 
+ /* css for events.html */
+
+ tbody {
+  display:block;
+  height:400px;
+  overflow:auto;
+  margin: 0px;
+  padding: 0px;
+  }
+  thead, tbody tr {
+  display:table;
+  width:100%;
+  table-layout:fixed;
+  }
+  thead {
+  width: calc( 100% - 1em )
+  }
+  table {
+  width:100%;
+  }
+/* #shift-picker {
+
+} */
+
+
+
+
+
   @media only screen and (max-width: 600px) {
     /* body {
       /* background-color: lightblue; */
@@ -42,11 +70,15 @@ p,h3 {
 }
 
 #main-logo {
-  width: 240px;
+  width: 140px;
 }
 
 .mobileghost {
   display:none
+}
+
+p {
+  padding: 0px;
 }
 
 }
