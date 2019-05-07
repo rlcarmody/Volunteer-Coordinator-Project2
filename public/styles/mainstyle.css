@@ -1,12 +1,52 @@
 body {
     /* background: black; */
-    margin: auto;
+    /* margin: auto; */
 
 }
+p,h3 {
+    color: #e0f7fa;
 
-div {
+}
+/* div {
     padding-left: 10px;
-    padding-top: 10px;
-    align-content: center;
-  }
+    /* padding-top: 10px; */
+    /* align-content: center;
+  } */
   
+
+
+
+/* .container {
+  padding-bottom: 20px
+
+} */
+
+.mbvcs {
+ 
+  font-size: 40px;
+  color: #FDFDFD;
+}
+
+  @media only screen and (max-width: 600px) {
+    /* body {
+      /* background-color: lightblue; */
+      /* max-width: 1000px; */
+    /* } */ 
+ 
+
+.mbvcs {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  font-size: 20px;
+  /* color: yellow; */
+}
+
+#main-logo {
+  width: 240px;
+}
+
+.mobileghost {
+  display:none
+}
+
+}
