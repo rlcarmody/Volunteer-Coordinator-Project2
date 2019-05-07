@@ -1,11 +1,9 @@
-// register.js provide functions for user registration (Mohsen)
+// register.js provide functions for user registration - Mohsen
 $("#regForm").on("click", function(event) {
-  console.log("1");
   event.preventDefault();
-
   // Start: getting data of form elements
   var newUser = {
-    userName: $("#firstName")
+    userFirstName: $("#firstName")
       .val()
       .trim(),
     userLastName: $("#lastName")
@@ -33,13 +31,18 @@ $("#regForm").on("click", function(event) {
   // End: getting data of form elements
   // Start: email verification
   const email = newUser.userEmail;
+  const pwd = newUser.userPassword;
   function validateEmail(email) {
     var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
   }
+  function validatePassword(password) {
+    const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,16}$/;
+    return regex.test(password);
+  }
   // eslint-disable-next-line no-unused-vars
   const isEmailValid = validateEmail(email);
-  alert("email: " + email +" " + isEmailValid);
+  const isPWDValid = validatePassword(pwd);
   // End: email verification
 
   // This line is the magic. It"s very similar to the standard ajax function we used.
@@ -48,21 +51,29 @@ $("#regForm").on("click", function(event) {
   // depending on if a tables is available or not.
 
   // checking email verification and password match
-  if (newUser.userPassword === newUser.verifyPassword && isEmailValid) {
-    $.post("/api/userRegistration", newUser, function(userId) {
+  if (
+    newUser.userPassword === newUser.verifyPassword &&
+    isEmailValid &&
+    isPWDValid
+  ) {
+    $.post("/api/register", newUser, function(result) {
       // If a table is available... tell user they are booked.
-      if (userId) {
+      if (result === "Success") {
         // redirect registered user with id to event sign up proccess
-        window.location.href = "/signUpEvent/:id";
+        window.location.href = "/events.html";
       }
       // If a table is available... tell user they on the waiting list.
       else {
-        alert("Please try again! Something is wrong with user Registration.");
+        alert("Please try again! Something is going wrong.");
       }
     });
   } else {
     if (!isEmailValid) {
       alert("Please enter valid email");
+    } else if (!isPWDValid) {
+      alert(
+        "Weak Password! Try a stronger password including minimum 6 characters, lowercase, an uppercase character, and digits!"
+      );
     } else {
       alert("Passwords are not match!");
     }
