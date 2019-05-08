@@ -3,8 +3,8 @@
   <head>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="styles/materialize.min.css"  media="screen,projection"/>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <link rel="stylesheet" type="text/css" href="styles/mainstyle.css">
@@ -22,9 +22,7 @@
     </div>
     <div class="col s12 m8 pull-m4">
        <p class="mbvcs">Manifest VCS Admin</p>Ahoy Captain!<br>
-       <p class="flow-text-sm mobileghost">Volunteer Coordination System - Please select your position and shift! 
-      <br>If you have any additional questions, please contact us at <a href="volunteers@murderboat.com">volunteers@murderboat.com!</a>
-      <br>Read volunteer policy at: <a href="www.murderboat.com/volunteers">www.murderboat.com/volunteers</a></p>
+       <p class="flow-text-sm mobileghost">Step the Mast! Hoist Sail!</p>
 
 
     </div>
@@ -74,14 +72,14 @@
                     <form action="#"><p>
                           <label>
                             <input id="" type="checkbox"/>
-                            <span>IN</span>
+                            <span class="chk">IN</span>
                           </label></p></form>
                 </td> 
                 <td>
                     <form action="#"><p>
                           <label>
                             <input type="checkbox"/>
-                            <span>OUT</span>
+                            <span class="chk">OUT</span>
                           </label></p></form>
                 </td>
                 <td>
@@ -107,88 +105,19 @@
   </div>
 </div>
 
-<!-- Confirmation loads here -->
-<div class="container">
-
- <div id="confirmDiv"><h4>confirmation goes here</h4></div>
-
  
 </div>
     <!--JavaScript at end of body for optimized loading-->
-    <script type="text/javascript" src="js/materialize.min.js">
-      </script>
+  <!-- Compiled and minified JavaScript -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     
     
 <script>
-//Drop down trigger action
-
-$(".dropdown-trigger").dropdown();
-
 // Tabs action
 
 $(document).ready(function(){
     $('.tabs').tabs();
   });
-
-
-
-//Active JS
-
-//Submit Click to POST and display confirmation
-
-// $("#submit").on("click", function(event) {
-//       event.preventDefault();
-//       var userLogin = {
-//         firstName: $("#firstName").val().trim(),
-//         lastName: $("#lastName").val().trim(),
-//         nickName: $("#nickName").val().trim(),
-//         phone: $("#phone").val().trim(),
-//         email: $("#email").val().trim(),
-//         skills: $("#skills").val().trim(),
-//         password: $("#password").val().trim(),
-//       };
-
-//       // what about the callback?
-//       $.post("/api/login", userLogin)
-//         .then(function(data) {
-//           console.log("registering...", data);
-
-// test data - to be deleted after app is running
-let test_data = {
-       "firstName":"Mark",
-       "lastName":"Farina",
-       "nickName":"DJ Mark",
-       "phone": 5035554444,
-       "email": "mark@dj.com",
-       "skills": "Dj, sound, dishes",
-       "password": "murderboat"
-
-      };
-
-          let newRow = `<div style="color:black">
-                          <h2>Confirmation</h2>
-                          <p style="color:black">${"First Name: " + test_data.firstName}<br><hr>
-                          ${"Last Name: " + test_data.lastName}<br><hr>
-                          ${"Nickname: " + test_data.nickName}<br><hr>
-                          ${"Phone: " + test_data.phone}<br><hr>
-                          ${"Email: " + test_data.email}<br><hr>
-                          ${"Skills: " + test_data.skill}<br><hr>
-                        </div>
-                        <div>
-                            <a href="" class="waves-effect waves-light btn">Confirm</a>
-
-                            <a href="" class="waves-effect waves-light btn">Start Over</a>
-                            <br><br>
-                        </div>`
-
-    console.log(test_data.firstName);
-    $('#confirmDiv').append(newRow);
-        // });
-    // });
-// CHANGE all test_data to data and free the above });s and onclick to run
-
-
-
 
     </script>
   </body>

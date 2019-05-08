@@ -89,9 +89,10 @@ td {
   padding: 2px;
 }
 
-span {
-  /* padding-left: 10px;
-  padding-right: 10px; */
+.chk {
+  padding-left:22px !important;
+  
+  
 }
 
 }
