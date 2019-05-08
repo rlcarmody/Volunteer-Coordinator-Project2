@@ -3,7 +3,7 @@ const sec = require("../auth");
 
 module.exports = app => {
   app.get("/api/users", (req, res) => {
-    const user = sec.authorize.verifyToken(req.headers);
+    const user = sec.authorize.verifyToken(req.cookies);
     return user ? res.json(user) : res.status(401).end();
   });
 
@@ -14,7 +14,13 @@ module.exports = app => {
           if (isCorrectPassword) {
             const { id, email, isStaff } = user;
             const token = sec.authorize.generateToken(email, isStaff, id);
-            res.json({ token });
+            res
+              .cookie("authToken", token, {
+                maxAge: 3600000,
+                httpOnly: true,
+                sameSite: true
+              })
+              .send("Success");
           } else {
             res.status(401).send("Invalid User Name or Password");
           }
@@ -26,18 +32,18 @@ module.exports = app => {
   });
 
   app.post("/api/register", (req, res) => {
-    if (sec.isValidPassword(req.body.password)) {
-      sec.hashPassword(req.body.password.trim(), (err, hash) => {
+    if (sec.isValidPassword(req.body.userPassword)) {
+      sec.hashPassword(req.body.userPassword.trim(), (err, hash) => {
         if (err) {
           res.status(500).end();
         }
         const newUserRequest = {
-          firstName: req.body.firstName.trim(),
-          lastName: req.body.lastName.trim(),
-          nickName: req.body.nickName.trim(),
-          phone: req.body.phone.trim(),
-          email: req.body.email.trim(),
-          skills: req.body.skills.trim(),
+          firstName: req.body.userFirstName.trim(),
+          lastName: req.body.userLastName.trim(),
+          nickName: req.body.userNickName.trim(),
+          phone: req.body.usrePhone.replace(/[^0-9]/, "").trim(),
+          email: req.body.userEmail.trim(),
+          skills: req.body.userSkills.trim(),
           password: hash
         };
         db.User.create(newUserRequest)
@@ -47,10 +53,16 @@ module.exports = app => {
               user.email,
               user.isStaff
             );
-            res.json({ token });
+            res
+              .cookie("authToken", token, {
+                maxAge: 3600000,
+                httpOnly: true,
+                sameSite: true
+              })
+              .send("Success");
           })
           .catch(error => {
-            console.log(error.message);
+            console.log("error from line 66 apiRoutes: " + error);
             res.status(400).end();
           });
       });
