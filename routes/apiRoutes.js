@@ -62,7 +62,7 @@ module.exports = app => {
               .send("Success");
           })
           .catch(error => {
-            console.log("error from line 66 apiRoutes: " + error);
+            console.log(`error from line 66 apiRoutes: ${error}`);
             res.status(400).end();
           });
       });
