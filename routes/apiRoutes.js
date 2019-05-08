@@ -16,7 +16,7 @@ module.exports = app => {
             const token = sec.authorize.generateToken(email, isStaff, id);
             res
               .cookie("authToken", token, {
-                maxAge: 600000,
+                maxAge: 3600000,
                 httpOnly: true,
                 sameSite: true
               })
@@ -41,7 +41,7 @@ module.exports = app => {
           firstName: req.body.userFirstName.trim(),
           lastName: req.body.userLastName.trim(),
           nickName: req.body.userNickName.trim(),
-          phone: req.body.usrePhone.trim(),
+          phone: req.body.usrePhone.replace(/[^0-9]/, "").trim(),
           email: req.body.userEmail.trim(),
           skills: req.body.userSkills.trim(),
           password: hash
@@ -55,7 +55,7 @@ module.exports = app => {
             );
             res
               .cookie("authToken", token, {
-                maxAge: 600000,
+                maxAge: 3600000,
                 httpOnly: true,
                 sameSite: true
               })
