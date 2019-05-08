@@ -14,7 +14,8 @@ CREATE TABLE `Users` (
 	`email` VARCHAR(100) NOT NULL,
     `skills` VARCHAR(5000),
     `password` CHAR(60) NOT NULL,
-    `banned` BOOLEAN NOT NULL DEFAULT 0,
+    `banned` BOOLEAN NOT NULL default 0,
+
 	/* Set ID as primary key */
 	PRIMARY KEY (`id`)
 );
@@ -54,9 +55,10 @@ CREATE TABLE `Shifts` (
 CREATE TABLE `User_Shifts` (
 	`id` INTEGER AUTO_INCREMENT NOT NULL,
 	`userID` INTEGER,
-    `shiftID` INTEGER,
-    `checkedIn` BOOLEAN DEFAULT 0,
-    `checkedOut` BOOLEAN DEFAULT 0,
+  `shiftID` INTEGER NOT NULL,
+  `checkedIn` BOOLEAN default 0,
+  `checkedOut` BOOLEAN default 0,
+
 
 	PRIMARY KEY (`id`),
 
