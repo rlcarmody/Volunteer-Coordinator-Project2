@@ -51,32 +51,38 @@
         </div>  
         <div class="row">
             <div class="input-field-sm col s12 white-text">
-              <input id="phone" type="tel" class="validate white-text" name="phone" >
+              <input id="userPhone" type="tel" class="validate white-text" name="phone" >
               <label for="phone">Phone (xxx-xxx-xxxx)</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field-sm col s12 white-text">
-              <input id="email" type="email" class="validate white-text" name="passwordLogin" >
+              <input id="userEmail" type="email" class="validate white-text" name="email" >
               <label for="email">Email</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field-sm col s12 white-text">
-               <input id="skills" type="text" class="validate white-text" name="passwordLogin" >
+               <input id="userSkills" type="text" class="validate white-text" name="skills" >
                <label for="skills">Skills</label>
             </div>
         </div>
         <div class="row">
             <div class="input-field-sm col s12 white-text">
-               <input id="password" type="password" class="validate white-text" name="passwordLogin" >
+               <input id="userPassword" type="password" class="validate white-text" name="password" >
                <label for="password">Password</label>
             </div>
         </div>
+        <div class="row">
+          <div class="input-field-sm col s12 white-text">
+             <input id="verifyPassword" type="password" class="validate white-text" name="passwordVerify" >
+             <label for="passwordVerify">Password</label>
+          </div>
+      </div>
     </form>
 
     <div class="col s12">
-      <button id="submit" class="btn waves-effect waves-light" type="submit" name="submit">Submit
+      <button id="regForm" class="btn waves-effect waves-light" type="submit" name="action">Submit
         <i class="material-icons right">send</i>
       </button>
     </div>
@@ -97,17 +103,15 @@
   </div>
 </div>
 
-<!-- Confirmation loads here -->
-<div class="row white black-text">
 
- <div class="container" id="confirmDiv"><h4>confirmation goes here</h4></div>
-
- 
-</div>
-    <!--JavaScript at end of body for optimized loading-->
+<!-- Load Materialize -->
     <script type="text/javascript" src="js/materialize.min.js">
       </script>
-    
+    <script type="text/javascript" src="js/register.js">
+      </script>
+  
+
+<!--JavaScript at end of body for optimized loading-->    
     
 <script>
 //Active JS
@@ -130,40 +134,6 @@
 //       $.post("/api/login", userLogin)
 //         .then(function(data) {
 //           console.log("registering...", data);
-
-// test data - to be deleted after app is running
-let test_data = {
-       "firstName":"Mark",
-       "lastName":"Farina",
-       "nickName":"DJ Mark",
-       "phone": 5035554444,
-       "email": "mark@dj.com",
-       "skills": "Dj, sound, dishes",
-       "password": "murderboat"
-
-      };
-
-          let newRow = `<div style="color:black">
-                          <h2>Confirmation</h2>
-                          <p style="color:black">${"First Name: " + test_data.firstName}<br><hr>
-                          ${"Last Name: " + test_data.lastName}<br><hr>
-                          ${"Nickname: " + test_data.nickName}<br><hr>
-                          ${"Phone: " + test_data.phone}<br><hr>
-                          ${"Email: " + test_data.email}<br><hr>
-                          ${"Skills: " + test_data.skill}<br><hr>
-                        </div>
-                        <div>
-                            <a href="" class="waves-effect waves-light btn">Confirm</a>
-
-                            <a href="" class="waves-effect waves-light btn">Start Over</a>
-                            <br><br>
-                        </div>`
-
-    console.log(test_data.firstName);
-    $('#confirmDiv').append(newRow);
-        // });
-    // });
-// CHANGE all test_data to data and free the above });s and onclick to run
 
 
 
