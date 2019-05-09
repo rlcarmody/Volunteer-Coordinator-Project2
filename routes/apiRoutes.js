@@ -85,14 +85,36 @@ module.exports = app => {
           <td>${rows.startTime.toString().substring(0, 16)}</td>
           <td>${rows.endTime.toString().substring(0, 16)}</td>
           <td class="right-align">
-          <a href="/api/shifts/${rows.id}" class="waves-effect waves-light btn">Select</a>
+          <a href="/shifts.html?id=${rows.id}" class="waves-effect waves-light btn">Select</a>
           </td>                 
         </tr>`;
       });
       res.json(tbodyCreator);
     });
   });
-};
+  // Example route that gets all Shifts
+  app.get("/api/shifts/:id", (req, res) => {
+    db.Shift.findAll({
+      where: {
+        EventId: req.params.id
+      }
+    }).then(ShiftResults => {
+      let tbodyShifts = "";
+      ShiftResults.forEach(rowsShift => {
+        tbodyShifts += `
+        <tr>
+          <td>${rowsShift.position}</td>
+          <td>${rowsShift.startTime.toString().substring(0, 25)}</td>
+          <td>${rowsShift.endTime.toString().substring(0, 25)}</td>
+          <td class="right-align">
+          <button class="shiftSignUp waves-effect waves-light btn" onclick="signupshift('${req.params.id}','${rowsShift.id}')">Join!</button>
+          </td>                 
+        </tr>`;
+      });
+      res.json(tbodyShifts);
+    });
+  });
+};// end of app
 // Example route that gets all Shifts
 /*app.post("/api/shifts/:eId", (req, res) => {
   db.Event.findAll({
