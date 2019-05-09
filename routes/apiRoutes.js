@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 const db = require("../models");
 const sec = require("../auth");
 
@@ -73,12 +74,46 @@ module.exports = app => {
       res.status(400).end();
     }
   });
-  // Example route that gets all Events, the shifts and the user shifts and returns as json
-  app.get("/api/events", (req, res) => {
-    db.Event.findAll({
-      include: { model: db.Shift, include: db.User_Shift }
-    }).then(results => {
-      res.json(results);
+  // Example route that gets all Events
+  app.post("/api/events", (req, res) => {
+    db.Event.findAll({}).then(results => {
+      let tbodyCreator = "";
+      results.forEach(rows => {
+        tbodyCreator += `
+        <tr>
+          <td>${rows.name}</td>
+          <td>${rows.startTime.toString().substring(0, 16)}</td>
+          <td>${rows.endTime.toString().substring(0, 16)}</td>
+          <td class="right-align">
+          <a href="/api/shifts/${rows.id}" class="waves-effect waves-light btn">Select</a>
+          </td>                 
+        </tr>`;
+      });
+      res.json(tbodyCreator);
     });
   });
 };
+// Example route that gets all Shifts
+/*app.post("/api/shifts/:eId", (req, res) => {
+  db.Event.findAll({
+    include: { model: db.Shift, include: db.User_Shift }
+  }).then(results => {
+    let tbodyCreator = "";
+    results.forEach(rows => {
+      tbodyCreator = `
+      <tr>
+        <td>${rows.name}</td>
+        <td>${rows.ShiftId}</td>
+        <td>${rows.ShiftId}</td>
+        <td>
+        <button class="btn waves-effect waves-light" type="submit" name="action">I'll do it!
+            <i class="material-icons right">send</i>
+        </button>
+        </td>                 
+      </tr>`;
+    });
+    res.json(tbodyCreator);
+  });
+});
+};
+*/
