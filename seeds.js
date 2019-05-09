@@ -47,6 +47,16 @@ const seeds = () => {
       phone: "7281665723",
       password: "iG0Kswq8Ogrp_4c",
       nickName: ""
+    },
+    {
+      firstName: "Admin",
+      lastName: "istrator",
+      email: "admin@example.com",
+      skills: "Extension",
+      phone: "7281665723",
+      password: "MBVCSpa55",
+      nickName: "",
+      isStaff: true
     }
   ];
 
