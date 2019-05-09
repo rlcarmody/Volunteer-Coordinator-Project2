@@ -1,11 +1,60 @@
 var db = require("../models");
 
 module.exports = app => {
-  //EVENTS
-  // POST route for saving a new events
 
+  // GET route for searching events
+  app.get("/Search/Events", function(req, res) {
+    const searchTerm = req.query.keyword;
+    db.Event.findAll({
+      where: {
+        $or: [
+          {name: {$like: '%' + searchTerm + '%'}}, 
+          {description: {$like: '%' + searchTerm + '%'}}, 
+          {venue: {$like: '%' + searchTerm + '%'}}, 
+        ]
+      }
+    }).then(function(seachEvents) {
+        res.json(seachEvents);
+    });
+  });
+
+  // GET route for searching shifts
+  app.get("/Search/Shifts", function(req, res) {
+    const searchTerm = req.query.keyword;
+    db.Shift.findAll({
+      where: {
+        position: {
+            $like: '%' + searchTerm + '%'
+          }
+        }
+    }).then(function(searchShifts) {
+        res.json(searchShifts);
+    });
+  });
+
+  // GET route for searching users
+  app.get("/Search/Users", function(req, res) {
+    const searchTerm = req.query.keyword;
+    db.User.findAll({
+      where: {
+        $or: [
+          {firstName: {$like: '%' + searchTerm + '%'}}, 
+          {lastName: {$like: '%' + searchTerm + '%'}}, 
+          {nickName: {$like: '%' + searchTerm + '%'}}, 
+          {email:  {$like: '%' + searchTerm + '%'}}, 
+          {phone: {$like: '%' + searchTerm + '%'}}, 
+        ]
+      }
+    }).then(function(searchUsers) {
+        res.json(searchUsers);
+    });
+  });
+    
+  //EVENTS
+
+  // POST route for saving a new events
   app.post("/Event", function(req, res) {
-    db.Event.create({
+    event = db.Event.create({
       name: req.body.name,
       description: req.body.description,
       venue: req.body.venue,
@@ -34,7 +83,7 @@ module.exports = app => {
   app.put("/Event", function(req, res) {
     db.Event.update({
       name: req.body.name,
-      desription: req.body.desription,
+      description: req.body.description,
       venue: req.body.venue,
       startTime: req.body.startTime,
       endTime: req.body.endTime
@@ -107,7 +156,6 @@ module.exports = app => {
         position: req.body.position,
         startTime: req.body.startTime,
         endTime: req.body.endTime
-
     }).then(function(addShift) {
       res.json(addShift);
     })
