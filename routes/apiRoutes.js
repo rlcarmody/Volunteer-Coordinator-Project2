@@ -41,7 +41,7 @@ module.exports = app => {
           firstName: req.body.userFirstName.trim(),
           lastName: req.body.userLastName.trim(),
           nickName: req.body.userNickName.trim(),
-          phone: req.body.usrePhone.replace(/[^0-9]/, "").trim(),
+          phone: req.body.userPhone.replace(/[^0-9]/, "").trim(),
           email: req.body.userEmail.trim(),
           skills: req.body.userSkills.trim(),
           password: hash
@@ -58,6 +58,9 @@ module.exports = app => {
                 maxAge: 3600000,
                 httpOnly: true,
                 sameSite: true
+              })
+              .cookie("userName", user.nickName || user.firstName, {
+                maxAge: 3600000
               })
               .send("Success");
           })

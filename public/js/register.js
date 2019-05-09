@@ -1,8 +1,9 @@
 // register.js provide functions for user registration - Mohsen
-$("#regForm").on("click", function(event) {
+/* global $ M */
+$("#regForm").on("click", event => {
   event.preventDefault();
   // Start: getting data of form elements
-  var newUser = {
+  const newUser = {
     userFirstName: $("#firstName")
       .val()
       .trim(),
@@ -12,7 +13,7 @@ $("#regForm").on("click", function(event) {
     userNickName: $("#nickName")
       .val()
       .trim(),
-    usrePhone: $("#userPhone")
+    userPhone: $("#userPhone")
       .val()
       .trim(),
     userEmail: $("#userEmail")
@@ -33,7 +34,7 @@ $("#regForm").on("click", function(event) {
   const email = newUser.userEmail;
   const pwd = newUser.userPassword;
   function validateEmail(email) {
-    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email);
   }
   function validatePassword(password) {
@@ -45,37 +46,25 @@ $("#regForm").on("click", function(event) {
   const isPWDValid = validatePassword(pwd);
   // End: email verification
 
-  // This line is the magic. It"s very similar to the standard ajax function we used.
-  // Essentially we give it a URL, we give it the object we want to send, then we have a "callback".
-  // The callback is the response of the server. In our case, we set up code in api-routes that "returns" true or false
-  // depending on if a tables is available or not.
-
   // checking email verification and password match
   if (
     newUser.userPassword === newUser.verifyPassword &&
     isEmailValid &&
     isPWDValid
   ) {
-    $.post("/api/register", newUser, function(result) {
-      // If a table is available... tell user they are booked.
+    $.post("/api/register", newUser, result => {
       if (result === "Success") {
         // redirect registered user with id to event sign up proccess
         window.location.href = "/events.html";
-      }
-      // If a table is available... tell user they on the waiting list.
-      else {
-        alert("Please try again! Something is going wrong.");
+      } else {
+        M.toast({ html: "Please try again! Something is going wrong" });
       }
     });
+  } else if (!isEmailValid) {
+    M.toast({ html: "Please enter a valid email" });
+  } else if (!isPWDValid) {
+    M.toast({ html: "Try a stronger password" });
   } else {
-    if (!isEmailValid) {
-      alert("Please enter valid email");
-    } else if (!isPWDValid) {
-      alert(
-        "Weak Password! Try a stronger password including minimum 6 characters, lowercase, an uppercase character, and digits!"
-      );
-    } else {
-      alert("Passwords are not match!");
-    }
+    M.toast({ html: "Passwords do not match" });
   }
 });
