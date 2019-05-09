@@ -47,12 +47,22 @@ const seeds = () => {
       phone: "7281665723",
       password: "iG0Kswq8Ogrp_4c",
       nickName: ""
+    },
+    {
+      firstName: "Admin",
+      lastName: "istrator",
+      email: "admin@example.com",
+      skills: "Extension",
+      phone: "7281665723",
+      password: "MBVCSpa55",
+      nickName: "",
+      isStaff: true
     }
   ];
 
   const Events = [
     {
-      name: "deleniti et ipsa",
+      name: "Plane",
       description:
         "Voluptas ut tempore et aspernatur. Rerum rerum earum nisi est molestiae. Quo eligendi harum omnis excepturi sed ipsum. Rerum sint possimus quas dolores sint non sunt expedita iusto. Quae ex quia nostrum facilis autem magnam id ut saepe.",
       venue: "Kreigertown",
@@ -60,7 +70,7 @@ const seeds = () => {
       endTime: "2019-05-03 00:00:00"
     },
     {
-      name: "pariatur iusto ea",
+      name: "Boat",
       description:
         "Autem quia ut dolor itaque aut excepturi maxime. Error quidem deserunt pariatur impedit illo omnis voluptatem dicta consequatur. Pariatur harum vitae corporis saepe rem quo dolor ipsa.",
       venue: "Kuvalisland",
@@ -68,18 +78,10 @@ const seeds = () => {
       endTime: "2019-05-03 00:00:00"
     },
     {
-      name: "dolores tenetur labore",
+      name: "Moon",
       description:
         "Consequatur id adipisci nisi est vero facere. Aut debitis aut qui quidem architecto omnis suscipit voluptas. Voluptatem et sunt aperiam temporibus cupiditate placeat. Iste totam voluptatum saepe accusamus reiciendis quis omnis error. Ipsa et labore eum magni odio.",
       venue: "Port Martine",
-      startTime: "2019-05-03 00:00:00",
-      endTime: "2019-05-03 00:00:00"
-    },
-    {
-      name: "iste eligendi earum",
-      description:
-        "Rerum debitis ab maiores. Recusandae et velit enim. Dolorum tempore pariatur laudantium sint et minima saepe. Culpa magni id repellat cupiditate quis voluptatem voluptatem. Mollitia nihil aut aperiam labore.",
-      venue: "Alvahberg",
       startTime: "2019-05-03 00:00:00",
       endTime: "2019-05-03 00:00:00"
     }
@@ -87,27 +89,22 @@ const seeds = () => {
 
   const Shifts = [
     {
-      position: "repellendus",
+      position: "Dishes",
       startTime: "2019-05-03 00:00:00",
       endTime: "2019-05-03 03:00:00"
     },
     {
-      position: "dolor",
+      position: "Mop",
       startTime: "2019-05-03 00:00:00",
       endTime: "2019-05-03 03:00:00"
     },
     {
-      position: "consequatur",
+      position: "Laundry",
       startTime: "2019-05-03 00:00:00",
       endTime: "2019-05-03 03:00:00"
     },
     {
-      position: "magni",
-      startTime: "2019-05-03 00:00:00",
-      endTime: "2019-05-03 03:00:00"
-    },
-    {
-      position: "voluptas",
+      position: "Sound Setup",
       startTime: "2019-05-03 00:00:00",
       endTime: "2019-05-03 03:00:00"
     }
