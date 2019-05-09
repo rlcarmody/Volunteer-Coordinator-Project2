@@ -3,10 +3,6 @@ const db = require("../models");
 const sec = require("../auth");
 
 module.exports = app => {
-  app.get("/api/users", (req, res) => {
-    const user = sec.authorize.verifyToken(req.cookies);
-    return user ? res.json(user) : res.status(401).end();
-  });
 
   app.post("/api/login", (req, res) => {
     db.User.findOne({ where: { email: req.body.email.trim() } }).then(user => {
@@ -74,7 +70,7 @@ module.exports = app => {
       res.status(400).end();
     }
   });
-  // Example route that gets all Events
+
   app.post("/api/events", (req, res) => {
     db.Event.findAll({}).then(results => {
       let tbodyCreator = "";
@@ -92,7 +88,7 @@ module.exports = app => {
       res.json(tbodyCreator);
     });
   });
-  // Example route that gets all Shifts
+
   app.get("/api/shifts/:id", (req, res) => {
     db.Shift.findAll({
       where: {
@@ -114,15 +110,14 @@ module.exports = app => {
       res.json(tbodyShifts);
     });
   });
-};// end of app
-// Example route that gets all Shifts
-/*app.post("/api/shifts/:eId", (req, res) => {
-  db.Event.findAll({
-    include: { model: db.Shift, include: db.User_Shift }
-  }).then(results => {
-    let tbodyCreator = "";
-    results.forEach(rows => {
-      tbodyCreator = `
+
+  app.post("/api/shifts/:eId", (req, res) => {
+    db.Event.findAll({
+      include: { model: db.Shift, include: db.User_Shift }
+    }).then(results => {
+      let tbodyCreator = "";
+      results.forEach(rows => {
+        tbodyCreator = `
       <tr>
         <td>${rows.name}</td>
         <td>${rows.ShiftId}</td>
@@ -133,9 +128,23 @@ module.exports = app => {
         </button>
         </td>                 
       </tr>`;
+      });
+      res.json(tbodyCreator);
     });
-    res.json(tbodyCreator);
   });
-});
+
+  app.put("/api/admin/:checktype", (req, res) => {
+    const user = sec.authorize.verifyToken(req.cookies);
+    if (user && user.isStaff) {
+      const updateParams = {};
+      updateParams[req.params.checktype] = true;
+      db.User_Shift.update(updateParams, { where: { id: req.body.id } }).then(
+        results => {
+          res.json(results);
+        }
+      );
+    } else {
+      res.status(401).end();
+    }
+  });
 };
-*/
