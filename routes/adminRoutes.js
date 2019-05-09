@@ -1,15 +1,16 @@
 var db = require("../models");
 
 module.exports = app => {
-    //EVENTS
+  //EVENTS
   // POST route for saving a new events
+
   app.post("/Event", function(req, res) {
-    db.Events.create({
+    db.Event.create({
       name: req.body.name,
-      desription: req.body.desription,
+      description: req.body.description,
       venue: req.body.venue,
-      startime: req.body.startime,
-      endtime: req.body.endtime
+      startTime: req.body.startTime,
+      endTime: req.body.endTime
     }).then(function(addEvent) {
       res.json(addEvent);
     })
@@ -20,7 +21,7 @@ module.exports = app => {
 
   // DELETE route for deleting events by ID
   app.delete("/Event/:id", function(req, res) {
-    db.Events.destroy({
+    db.Event.destroy({
       where: {
         id: req.params.id
       }
@@ -31,12 +32,12 @@ module.exports = app => {
 
   // PUT route for updating Events.
   app.put("/Event", function(req, res) {
-    db.Events.update({
+    db.Event.update({
       name: req.body.name,
       desription: req.body.desription,
       venue: req.body.venue,
-      startime: req.body.startime,
-      endtime: req.body.endtime
+      startTime: req.body.startime,
+      endTime: req.body.endtime
     }, {
       where: {
         id: req.body.id
@@ -52,7 +53,7 @@ module.exports = app => {
    //USERS
   // POST route for saving a new users
   app.post("/User", function(req, res) {
-    db.Users.create({
+    db.User.create({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         nickName: req.body.nickName,
@@ -70,7 +71,7 @@ module.exports = app => {
 
   // DELETE route for deleting users by name
   app.delete("/User/:id", function(req, res) {
-    db.Users.destroy({
+    db.User.destroy({
       where: {
         firstName: req.body.firstName,
         lastName: req.body.lastName
@@ -82,7 +83,7 @@ module.exports = app => {
 
   // PUT route for updating User.
   app.put("/User", function(req, res) {
-    db.Users.update({
+    db.User.update({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
         nickName: req.body.nickName,
@@ -99,50 +100,53 @@ module.exports = app => {
     })
       .catch(function(err) {
         res.json(err);
-    });
-  });
-
-  // POST route for saving a new users
-  app.post("/User", function(req, res) {
-    db.Users.create({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        nickName: req.body.nickName,
-        phone: req.body.phone,
-        email: req.body.email,
-        skills: req.body.skills,
-        password: hash
-    }).then(function(addUser) {
-      res.json(addUser);
-    })
-      .catch(function(err) {
-        res.json(err);
-    });
-  });
-
-  // DELETE route for deleting users by name
-  app.delete("/User/:id", function(req, res) {
-    db.Users.destroy({
-      where: {
-        firstName: req.body.firstName,
-        lastName: req.body.lastName
-      }
-    }).then(function(deleteUser) {
-      res.json(deleteUser);
     });
   });
 
   //SHIFTS
-  // PUT route for updating User.
-  app.put("/Shift", function(req, res) {
-    db.Shifts.update({
-     
-    }, {
+  // POST route for saving a new shifts
+  app.post("/Shift", function(req, res) {
+    db.Shift.create({
+        id: req.body.id,
+        eventID: req.body.eventID,
+        position: req.body.position,
+        startTime: req.body.startTime,
+        endTime: req.body.endTime
+
+    }).then(function(addShift) {
+      res.json(addShift);
+    })
+      .catch(function(err) {
+        res.json(err);
+    });
+  });
+
+  // DELETE route for deleting Shift by ID
+  app.delete("/Shift/:id", function(req, res) {
+    db.Shift.destroy({
       where: {
         id: req.body.id
       }
-    }).then(function(updateUser) {
-      res.json(updateUser);
+    }).then(function(deleteShift) {
+      res.json(deleteShift);
+    });
+  });
+
+
+  // PUT route for updating Shift.
+  app.put("/Shift", function(req, res) {
+    db.Shift.update({
+     
+    }, {
+      where: {
+        id: req.body.id,
+        eventID: req.body.eventID,
+        position: req.body.position,
+        startTime: req.body.startTime,
+        endTime: req.body.endTime
+      }
+    }).then(function(updateShift) {
+      res.json(updateShift);
     })
       .catch(function(err) {
         res.json(err);
