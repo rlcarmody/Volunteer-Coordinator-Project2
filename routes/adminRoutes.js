@@ -36,8 +36,8 @@ module.exports = app => {
       name: req.body.name,
       desription: req.body.desription,
       venue: req.body.venue,
-      startTime: req.body.startime,
-      endTime: req.body.endtime
+      startTime: req.body.startTime,
+      endTime: req.body.endTime
     }, {
       where: {
         id: req.body.id
@@ -73,8 +73,7 @@ module.exports = app => {
   app.delete("/User/:id", function(req, res) {
     db.User.destroy({
       where: {
-        firstName: req.body.firstName,
-        lastName: req.body.lastName
+        id: req.body.id
       }
     }).then(function(deleteUser) {
       res.json(deleteUser);
@@ -89,8 +88,7 @@ module.exports = app => {
         nickName: req.body.nickName,
         phone: req.body.phone,
         email: req.body.email,
-        skills: req.body.skills,
-        password: hash
+        skills: req.body.skills
     }, {
       where: {
         id: req.body.id
@@ -136,14 +134,13 @@ module.exports = app => {
   // PUT route for updating Shift.
   app.put("/Shift", function(req, res) {
     db.Shift.update({
-     
+      eventID: req.body.eventID,
+      position: req.body.position,
+      startTime: req.body.startTime,
+      endTime: req.body.endTime
     }, {
       where: {
         id: req.body.id,
-        eventID: req.body.eventID,
-        position: req.body.position,
-        startTime: req.body.startTime,
-        endTime: req.body.endTime
       }
     }).then(function(updateShift) {
       res.json(updateShift);
