@@ -1,4 +1,5 @@
 const path = require("path");
+const moment = require("moment");
 const db = require("../models");
 const sec = require("../auth");
 
@@ -11,20 +12,6 @@ module.exports = app => {
   app.get("/admin", (req, res) => {
     const user = sec.authorize.verifyToken(req.cookies);
     if (user && user.isStaff) {
-      // db.Event.findAll({
-      //   include: {
-      //     model: db.Shift,
-      //     include: {
-      //       model: db.User_Shift,
-      //       include: {
-      //         model: db.User,
-      //         attributes: ["id", "firstName", "lastName", "nickName"]
-      //       }
-      //     }
-      //   }
-      // }).then(results => {
-      //   res.render("admin", { events: results });
-      // });
       db.Event.findAll({
         include: {
           model: db.Shift,
@@ -44,8 +31,13 @@ module.exports = app => {
             shift.User_Shifts.forEach(userShift => {
               const newShift = {
                 position: shift.position,
-                startTime: shift.startTime,
-                endTime: shift.endTime,
+                startTime: moment(
+                  shift.startTime,
+                  "YYYY-MM-DD HH:MM:SS"
+                ).format("ddd h:mm a"),
+                endTime: moment(shift.endTime, "YYYY-MM-DD HH:MM:SS").format(
+                  "ddd h:mm a"
+                ),
                 shiftId: userShift.id,
                 checkedIn: userShift.checkedIn,
                 checkedOut: userShift.checkedOut,
