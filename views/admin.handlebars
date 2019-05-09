@@ -46,13 +46,13 @@
                 <td>{{#if userId}} {{firstName}} {{lastName}} {{/if}}</td>
                 <td>
                   <label>
-                    <input data-checktype="checkin" data-id="{{shiftId}}" type="checkbox" {{#if checkedIn}} disabled {{/if}} />
+                    <input data-checktype="checkedIn" data-id="{{shiftId}}" type="checkbox" {{#if checkedIn}} checked disabled {{/if}} />
                     <span class="chk">IN</span>
                   </label>
                 </td>
                 <td>
                   <label>
-                    <input data-checktype="checkout" data-id="{{shiftId}}" type="checkbox" {{#if checkedOut}} disabled {{/if}}/>
+                    <input data-checktype="checkedOut" data-id="{{shiftId}}" type="checkbox" {{#unless checkedIn }} disabled {{/unless}} {{#if checkedOut}} checked disabled {{/if}}/>
                     <span class="chk">OUT</span>
                   </label>
                 </td>
