@@ -1,8 +1,7 @@
-const fs = require("fs");
 const jwt = require("jsonwebtoken");
 
-const privateKey = fs.readFileSync(`${__dirname}/private.key`, "utf8");
-const publicKey = fs.readFileSync(`${__dirname}/public.key`, "utf8");
+const privateKey = process.env.PRIVATE_KEY.replace(/\\n/g, "\n");
+const publicKey = process.env.PUBLIC_KEY.replace(/\\n/g, "\n");
 
 const options = {
   issuer: "MurderBoat",
