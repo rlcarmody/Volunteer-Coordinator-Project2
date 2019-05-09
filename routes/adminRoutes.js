@@ -14,9 +14,9 @@ module.exports = app => {
     }).then(function(addEvent) {
       res.json(addEvent);
     })
-      .catch(function(err) {
-        res.json(err);
-    });
+      .catch(
+        res.status(500).send("Error creating event in databse.")
+    );
   });
 
   // DELETE route for deleting events by ID
@@ -45,9 +45,8 @@ module.exports = app => {
     }).then(function(updateEvents) {
       res.json(updateEvents);
     })
-      .catch(function(err) {
-        res.json(err);
-    });
+      .catch(res.status(500).send("Error updating event in databse.")
+    );
   });
 
    //USERS
@@ -64,9 +63,8 @@ module.exports = app => {
     }).then(function(addUser) {
       res.json(addUser);
     })
-      .catch(function(err) {
-        res.json(err);
-    });
+      .catch(res.status(500).send("Error creating user in databse.")
+    );
   });
 
   // DELETE route for deleting users by name
@@ -96,9 +94,8 @@ module.exports = app => {
     }).then(function(updateUser) {
       res.json(updateUser);
     })
-      .catch(function(err) {
-        res.json(err);
-    });
+      .catch(res.status(500).send("Error updating user in databse.")
+    );
   });
 
   //SHIFTS
@@ -114,9 +111,8 @@ module.exports = app => {
     }).then(function(addShift) {
       res.json(addShift);
     })
-      .catch(function(err) {
-        res.json(err);
-    });
+      .catch(res.status(500).send("Error creating shift in databse.")
+    );
   });
 
   // DELETE route for deleting Shift by ID
@@ -145,11 +141,11 @@ module.exports = app => {
     }).then(function(updateShift) {
       res.json(updateShift);
     })
-      .catch(function(err) {
-        res.json(err);
-    });
+      .catch(res.status(500).send("Error updating shift in databse.")
+    );
   });
 
   
   
 };
+
