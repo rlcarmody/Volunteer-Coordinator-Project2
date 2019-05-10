@@ -1,11 +1,60 @@
 var db = require("../models");
 
 module.exports = app => {
-  //EVENTS
-  // POST route for saving a new events
 
+  // GET route for searching events
+  app.get("/Search/Events", function(req, res) {
+    const searchTerm = req.query.keyword;
+    db.Event.findAll({
+      where: {
+        $or: [
+          {name: {$like: '%' + searchTerm + '%'}}, 
+          {description: {$like: '%' + searchTerm + '%'}}, 
+          {venue: {$like: '%' + searchTerm + '%'}}, 
+        ]
+      }
+    }).then(function(seachEvents) {
+        res.json(seachEvents);
+    });
+  });
+
+  // GET route for searching shifts
+  app.get("/Search/Shifts", function(req, res) {
+    const searchTerm = req.query.keyword;
+    db.Shift.findAll({
+      where: {
+        position: {
+            $like: '%' + searchTerm + '%'
+          }
+        }
+    }).then(function(searchShifts) {
+        res.json(searchShifts);
+    });
+  });
+
+  // GET route for searching users
+  app.get("/Search/Users", function(req, res) {
+    const searchTerm = req.query.keyword;
+    db.User.findAll({
+      where: {
+        $or: [
+          {firstName: {$like: '%' + searchTerm + '%'}}, 
+          {lastName: {$like: '%' + searchTerm + '%'}}, 
+          {nickName: {$like: '%' + searchTerm + '%'}}, 
+          {email:  {$like: '%' + searchTerm + '%'}}, 
+          {phone: {$like: '%' + searchTerm + '%'}}, 
+        ]
+      }
+    }).then(function(searchUsers) {
+        res.json(searchUsers);
+    });
+  });
+    
+  //EVENTS
+
+  // POST route for saving a new events
   app.post("/Event", function(req, res) {
-    db.Event.create({
+    event = db.Event.create({
       name: req.body.name,
       description: req.body.description,
       venue: req.body.venue,
@@ -14,9 +63,9 @@ module.exports = app => {
     }).then(function(addEvent) {
       res.json(addEvent);
     })
-      .catch(function(err) {
-        res.json(err);
-    });
+      .catch(
+        res.status(500).send("Error creating event in database.")
+    );
   });
 
   // DELETE route for deleting events by ID
@@ -34,7 +83,7 @@ module.exports = app => {
   app.put("/Event", function(req, res) {
     db.Event.update({
       name: req.body.name,
-      desription: req.body.desription,
+      description: req.body.description,
       venue: req.body.venue,
       startTime: req.body.startTime,
       endTime: req.body.endTime
@@ -45,9 +94,8 @@ module.exports = app => {
     }).then(function(updateEvents) {
       res.json(updateEvents);
     })
-      .catch(function(err) {
-        res.json(err);
-    });
+      .catch(res.status(500).send("Error updating event in database.")
+    );
   });
 
    //USERS
@@ -64,9 +112,8 @@ module.exports = app => {
     }).then(function(addUser) {
       res.json(addUser);
     })
-      .catch(function(err) {
-        res.json(err);
-    });
+      .catch(res.status(500).send("Error creating user in database.")
+    );
   });
 
   // DELETE route for deleting users by name
@@ -96,9 +143,8 @@ module.exports = app => {
     }).then(function(updateUser) {
       res.json(updateUser);
     })
-      .catch(function(err) {
-        res.json(err);
-    });
+      .catch(res.status(500).send("Error updating user in database.")
+    );
   });
 
   //SHIFTS
@@ -110,13 +156,11 @@ module.exports = app => {
         position: req.body.position,
         startTime: req.body.startTime,
         endTime: req.body.endTime
-
     }).then(function(addShift) {
       res.json(addShift);
     })
-      .catch(function(err) {
-        res.json(err);
-    });
+      .catch(res.status(500).send("Error creating shift in database.")
+    );
   });
 
   // DELETE route for deleting Shift by ID
@@ -145,11 +189,7 @@ module.exports = app => {
     }).then(function(updateShift) {
       res.json(updateShift);
     })
-      .catch(function(err) {
-        res.json(err);
-    });
+      .catch(res.status(500).send("Error updating shift in database.")
+    );
   });
-
-  
-  
 };
