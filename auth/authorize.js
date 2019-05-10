@@ -10,8 +10,12 @@ const options = {
 };
 
 const auth = {
-  generateToken: (id, user, isStaff) => {
-    const payload = { id, user, isStaff };
+  generateToken: (ID, user, admin) => {
+    const payload = {
+      id: ID,
+      email: user,
+      isStaff: admin
+    };
     const token = jwt.sign(payload, privateKey, options);
     return token;
   },
