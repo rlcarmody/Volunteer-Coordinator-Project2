@@ -10,7 +10,7 @@ module.exports = app => {
         user.authenticate(req.body.password.trim()).then(isCorrectPassword => {
           if (isCorrectPassword) {
             const { id, email, isStaff } = user;
-            const token = sec.authorize.generateToken(email, isStaff, id);
+            const token = sec.authorize.generateToken(id, email, isStaff);
             res
               .cookie("authToken", token, {
                 maxAge: 3600000,
@@ -71,28 +71,21 @@ module.exports = app => {
     }
   });
 
-  
-
-  app.post("/api/shifts/:eId", (req, res) => {
-    db.Event.findAll({
-      include: { model: db.Shift, include: db.User_Shift }
-    }).then(results => {
-      let tbodyCreator = "";
-      results.forEach(rows => {
-        tbodyCreator = `
-      <tr>
-        <td>${rows.name}</td>
-        <td>${rows.ShiftId}</td>
-        <td>${rows.ShiftId}</td>
-        <td>
-        <button class="btn waves-effect waves-light" type="submit" name="action">I'll do it!
-            <i class="material-icons right">send</i>
-        </button>
-        </td>                 
-      </tr>`;
+  app.put("/api/shift/:id", (req, res) => {
+    const user = sec.authorize.verifyToken(req.cookies);
+    console.log(user);
+    if (user) {
+      db.User_Shift.update({
+        UserId: user.id
+      },
+      {
+        where: {
+          id: req.params.id
+        }
       });
-      res.json(tbodyCreator);
-    });
+    } else {
+      res.status(401).end();
+    }
   });
 
   app.put("/api/admin/:checktype", (req, res) => {

@@ -40,8 +40,8 @@ module.exports = app => {
       }
     })
       .then(shiftResults => {
-        const hbShifts = shiftResults.map(shift => {
-          const userShifts = [];
+        const hbShifts = [];
+        shiftResults.forEach(shift => {
           shift.User_Shifts.forEach(userShift => {
             const newShift = {
               position: shift.position,
@@ -53,10 +53,8 @@ module.exports = app => {
               ),
               shiftId: userShift.id
             };
-            userShifts.push(newShift);
-            console.log(userShifts);
+            hbShifts.push(newShift);
           });
-          return userShifts;
         });
         res.render("shifts", { shifts: hbShifts });
       })
