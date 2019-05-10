@@ -1,4 +1,4 @@
 module.exports = password => {
-  const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,16}$/;
+  const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
   return regex.test(password);
 };

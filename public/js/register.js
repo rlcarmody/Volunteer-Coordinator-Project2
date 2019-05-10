@@ -38,7 +38,7 @@ $("#regForm").on("click", event => {
     return re.test(email);
   }
   function validatePassword(password) {
-    const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,16}$/;
+    const regex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
     return regex.test(password);
   }
   // eslint-disable-next-line no-unused-vars
@@ -55,7 +55,7 @@ $("#regForm").on("click", event => {
     $.post("/api/register", newUser, result => {
       if (result === "Success") {
         // redirect registered user with id to event sign up proccess
-        window.location.href = "/events.html";
+        window.location.href = "/events";
       } else {
         M.toast({ html: "Please try again! Something is going wrong" });
       }

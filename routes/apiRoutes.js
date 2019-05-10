@@ -1,11 +1,8 @@
+/* eslint-disable prettier/prettier */
 const db = require("../models");
 const sec = require("../auth");
 
 module.exports = app => {
-  app.get("/api/users", (req, res) => {
-    const user = sec.authorize.verifyToken(req.cookies);
-    return user ? res.json(user) : res.status(401).end();
-  });
 
   app.post("/api/login", (req, res) => {
     db.User.findOne({ where: { email: req.body.email.trim() } }).then(user => {
@@ -13,7 +10,7 @@ module.exports = app => {
         user.authenticate(req.body.password.trim()).then(isCorrectPassword => {
           if (isCorrectPassword) {
             const { id, email, isStaff } = user;
-            const token = sec.authorize.generateToken(email, isStaff, id);
+            const token = sec.authorize.generateToken(id, email, isStaff);
             res
               .cookie("authToken", token, {
                 maxAge: 3600000,
@@ -73,52 +70,22 @@ module.exports = app => {
       res.status(400).end();
     }
   });
-  // Example route that gets all Events, the shifts and the user shifts and returns as json
-  app.get("/api/events", (req, res) => {
-    db.Event.findAll({
-      include: {
-        model: db.Shift,
-        order: [["startTime", "DESC"]],
-        include: {
-          model: db.User_Shift,
-          include: {
-            model: db.User,
-            attributes: ["id", "firstName", "lastName", "nickName"]
-          }
+
+  app.put("/api/shift/:id", (req, res) => {
+    const user = sec.authorize.verifyToken(req.cookies);
+    console.log(user);
+    if (user) {
+      db.User_Shift.update({
+        UserId: user.id
+      },
+      {
+        where: {
+          id: req.params.id
         }
-      }
-    }).then(results => {
-      const hbArray = results.map(event => {
-        const shifts = [];
-        event.Shifts.forEach(shift => {
-          shift.User_Shifts.forEach(userShift => {
-            const newShift = {
-              position: shift.position,
-              startTime: shift.startTime,
-              endTime: shift.endTime,
-              shiftId: userShift.id,
-              checkedIn: userShift.checkedIn,
-              checkedOut: userShift.checkedOut,
-              userId: userShift.UserId
-            };
-            if (newShift.userId) {
-              newShift.firstName = userShift.User.firstName;
-              newShift.lastName = userShift.User.lastName;
-              newShift.nickName = userShift.User.nickName;
-            }
-            shifts.push(newShift);
-          });
-        });
-        return {
-          eventId: event.id,
-          eventName: event.name,
-          eventStart: event.startTime,
-          eventEnd: event.endTime,
-          eventShifts: shifts
-        };
       });
-      res.json(hbArray);
-    });
+    } else {
+      res.status(401).end();
+    }
   });
 
   app.put("/api/admin/:checktype", (req, res) => {
