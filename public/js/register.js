@@ -55,7 +55,7 @@ $("#regForm").on("click", event => {
     $.post("/api/register", newUser, result => {
       if (result === "Success") {
         // redirect registered user with id to event sign up proccess
-        window.location.href = "/events.html";
+        window.location.href = "/events";
       } else {
         M.toast({ html: "Please try again! Something is going wrong" });
       }
