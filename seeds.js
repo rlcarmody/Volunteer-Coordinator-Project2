@@ -121,11 +121,7 @@ const seeds = () => {
       Shifts.forEach(shift => {
         shift.EventId = event.id;
         db.Shift.create(shift).then(result => {
-          const UserShifts = [
-            { ShiftId: result.id },
-            { ShiftId: result.id },
-            { ShiftId: result.id }
-          ];
+          const UserShifts = [{ ShiftId: result.id }];
           db.User_Shift.bulkCreate(UserShifts);
         });
       });

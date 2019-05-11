@@ -73,7 +73,6 @@ module.exports = app => {
 
   app.put("/api/shift/:id", (req, res) => {
     const user = sec.authorize.verifyToken(req.cookies);
-    console.log(user);
     if (user) {
       db.User_Shift.update({
         UserId: user.id
@@ -82,22 +81,9 @@ module.exports = app => {
         where: {
           id: req.params.id
         }
+      }).then(response => {
+        res.json(response);
       });
-    } else {
-      res.status(401).end();
-    }
-  });
-
-  app.put("/api/admin/:checktype", (req, res) => {
-    const user = sec.authorize.verifyToken(req.cookies);
-    if (user && user.isStaff) {
-      const updateParams = {};
-      updateParams[req.params.checktype] = true;
-      db.User_Shift.update(updateParams, { where: { id: req.body.id } }).then(
-        results => {
-          res.json(results);
-        }
-      );
     } else {
       res.status(401).end();
     }
