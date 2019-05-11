@@ -12,7 +12,6 @@ $(document).ready(function () {
       endTime: `${$("#endDate").val()} ${$("#endTime").val()}`,
       description: $("#description").val()
     };
-    console.log(newEvent);
     $.ajax({
       url: "/Event",
       method: "POST",
