@@ -1,26 +1,104 @@
 const moment = require("moment");
+const path = require("path");
 const db = require("../models");
 const sec = require("../auth");
 
 module.exports = app => {
-  // EVENTS
-  // POST route for saving a new events
+  // GET route for searching events
+  app.get("/Search/Events", (req, res) => {
+    const user = sec.authorize.verifyToken(req.cookies);
+    if (user && user.isStaff) {
+      const searchTerm = req.query.keyword;
+      db.Event.findAll({
+        where: {
+          $or: [
+            { name: { $like: `%${searchTerm}%` } },
+            { description: { $like: `%${searchTerm}%` } },
+            { venue: { $like: `%${searchTerm}%` } }
+          ]
+        }
+      }).then(seachEvents => {
+        res.json(seachEvents);
+      });
+    } else {
+      res.status(401).end();
+    }
+  });
 
+  // GET route for searching shifts
+  app.get("/Search/Shifts", (req, res) => {
+    const user = sec.authorize.verifyToken(req.cookies);
+    if (user && user.isStaff) {
+      const searchTerm = req.query.keyword;
+      db.Shift.findAll({
+        where: {
+          position: {
+            $like: `%${searchTerm}%`
+          }
+        }
+      }).then(searchShifts => {
+        res.json(searchShifts);
+      });
+    } else {
+      res.status(401).end();
+    }
+  });
+
+  // GET route for searching users
+  app.get("/Search/Users", (req, res) => {
+    const user = sec.authorize.verifyToken(req.cookies);
+    if (user && user.isStaff) {
+      const searchTerm = req.query.keyword;
+      db.User.findAll({
+        attributes: [
+          "firstName",
+          "lastName",
+          "nickName",
+          "isStaff",
+          "isBanned",
+          "skills",
+          "phone"
+        ],
+        where: {
+          $or: [
+            { firstName: { $like: `%${searchTerm}%` } },
+            { lastName: { $like: `%${searchTerm}%` } },
+            { nickName: { $like: `%${searchTerm}%` } },
+            { email: { $like: `%${searchTerm}%` } },
+            { phone: { $like: `%${searchTerm}%` } }
+          ]
+        }
+      }).then(searchUsers => {
+        res.json(searchUsers);
+      });
+    } else {
+      res.status(401).end();
+    }
+  });
+
+  // EVENTS
+
+  // POST route for saving a new events
   app.post("/Event", (req, res) => {
     const user = sec.authorize.verifyToken(req.cookies);
     if (user && user.isStaff) {
+      const startTime = moment(req.body.startTime).format(
+        "YYYY-MM-DD HH:mm:ss"
+      );
+      const endTime = moment(req.body.endTime).format("YYYY-MM-DD HH:mm:ss");
+      console.log(`${startTime} ${endTime}`);
       db.Event.create({
         name: req.body.name,
         description: req.body.description,
         venue: req.body.venue,
-        startTime: req.body.startTime,
-        endTime: req.body.endTime
+        startTime,
+        endTime
       })
         .then(addEvent => {
           res.json(addEvent);
         })
         .catch(err => {
-          res.json(err);
+          res.status(500).send("Error creating event in database.");
         });
     } else {
       res.status(401).end();
@@ -50,7 +128,7 @@ module.exports = app => {
       db.Event.update(
         {
           name: req.body.name,
-          desription: req.body.desription,
+          description: req.body.description,
           venue: req.body.venue,
           startTime: req.body.startTime,
           endTime: req.body.endTime
@@ -65,32 +143,12 @@ module.exports = app => {
           res.json(updateEvents);
         })
         .catch(err => {
-          res.json(err);
+          res.status(500).send("Error creating event in database.");
         });
     } else {
       res.status(401).end();
     }
   });
-
-  // USERS
-  // POST route for saving a new users
-  // app.post("/User", (req, res) => {
-  //   db.User.create({
-  //     firstName: req.body.firstName,
-  //     lastName: req.body.lastName,
-  //     nickName: req.body.nickName,
-  //     phone: req.body.phone,
-  //     email: req.body.email,
-  //     skills: req.body.skills,
-  //     password: hash
-  //   })
-  //     .then(addUser => {
-  //       res.json(addUser);
-  //     })
-  //     .catch(err => {
-  //       res.json(err);
-  //     });
-  // });
 
   // DELETE route for deleting users by name
   app.delete("/User/:id", (req, res) => {
@@ -131,7 +189,7 @@ module.exports = app => {
           res.json(updateUser);
         })
         .catch(err => {
-          res.json(err);
+          res.status(500).send("Error updating user in database.");
         });
     } else {
       res.status(401).end();
@@ -154,7 +212,7 @@ module.exports = app => {
           res.json(addShift);
         })
         .catch(err => {
-          res.json(err);
+          res.status(500).send("Error creating shift in database.");
         });
     } else {
       res.status(401).end();
@@ -178,32 +236,6 @@ module.exports = app => {
   });
 
   // PUT route for updating Shift.
-  app.put("/Shift", (req, res) => {
-    const user = sec.authorize.verifyToken(req.cookies);
-    if (user && user.isStaff) {
-      db.Shift.update(
-        {
-          eventID: req.body.eventID,
-          position: req.body.position,
-          startTime: req.body.startTime,
-          endTime: req.body.endTime
-        },
-        {
-          where: {
-            id: req.body.id
-          }
-        }
-      )
-        .then(updateShift => {
-          res.json(updateShift);
-        })
-        .catch(err => {
-          res.json(err);
-        });
-    } else {
-      res.status(401).end();
-    }
-  });
 
   app.get("/createEvent", (req, res) => {
     const user = sec.authorize.verifyToken(req.cookies);
@@ -268,6 +300,46 @@ module.exports = app => {
       });
     } else {
       res.sendFile(path.join(__dirname, "../", "public/index.html"));
+    }
+  });
+  app.put("/Shift", (req, res) => {
+    const user = sec.authorize.verifyToken(req.cookies);
+    if (user && user.isStaff) {
+      db.Shift.update(
+        {
+          eventID: req.body.eventID,
+          position: req.body.position,
+          startTime: req.body.startTime,
+          endTime: req.body.endTime
+        },
+        {
+          where: {
+            id: req.body.id
+          }
+        }
+      )
+        .then(updateShift => {
+          res.json(updateShift);
+        })
+        .catch(err => {
+          res.status(500).send("Error updating shift in database.");
+        });
+    } else {
+      res.status(401).end();
+    }
+  });
+  app.put("/api/admin/:checktype", (req, res) => {
+    const user = sec.authorize.verifyToken(req.cookies);
+    if (user && user.isStaff) {
+      const updateParams = {};
+      updateParams[req.params.checktype] = true;
+      db.User_Shift.update(updateParams, { where: { id: req.body.id } }).then(
+        results => {
+          res.json(results);
+        }
+      );
+    } else {
+      res.status(401).end();
     }
   });
 };
